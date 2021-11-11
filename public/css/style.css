@@ -1,0 +1,22 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background-color: #e2e1e0;
+	font-family: 'Source Sans Pro', sans-serif;
+}
+
+#app {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+}
+
+.container {
+	width: 90%;
+	max-width: 600px;
+}
