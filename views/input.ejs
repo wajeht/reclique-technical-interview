@@ -42,7 +42,7 @@
 
 <!-- -------------------- html -------------------- -->
 <div class="answer">
-	<!-- type -->
+	<!-- answer type -->
 	<div id="type" style="margin-bottom: 20px">
 		<label for="type">Answer type: </label>
 		<select name="type">
@@ -53,111 +53,30 @@
 	</div>
 
 	<!-- cash -->
-	<form action="/?question=<%=  questionId  %>&type=cash" method="post">
-		<table id="cash" style="margin-bottom: 20px; display: none">
-			<!-- entry heading  -->
-			<tr>
-				<th>when</th>
-				<th>entries type</th>
-				<th>due</th>
-				<th>due amount</th>
-			</tr>
+	<table id="cash" style="margin-bottom: 20px; display: none">
+		<!-- entry heading  -->
+		<tr>
+			<th>when</th>
+			<th>entries type</th>
+			<th>due</th>
+			<th>due amount</th>
+		</tr>
 
-			<!-- cash -->
-			<form action="/?question=<%= page %>&type=cash" method="post">
-				<% for (const [index, entry] of cash.entries()) { %>
-				<tr>
-					<td><%= index %></td>
-				</tr>
-
-				<!-- entry input -->
-				<tr>
-					<!-- when -->
-					<td><input type="text" placeholder="mm/dd" /></td>
-
-					<!-- entries -->
-					<td>
-						<select name="type">
-							<option value=""></option>
-							<option value="revenue">Revenue</option>
-							<option value="deferred">Deferred</option>
-							<option value="cash">Cash</option>
-							<option value="receivable">Receivable</option>
-							<option value="contra">Contra</option>
-							<option value="system-credit">System Credit (Liability)</option>
-						</select>
-					</td>
-
-					<!-- due -->
-					<td style="display: flex; gap: 7px">
-						<div
-							style="
-								display: flex;
-								justify-content: center;
-								align-items: center;
-								gap: 3px;
-							"
-						>
-							<label for="dr">dr</label>
-							<input type="radio" id="dr" name="due" value="dr" />
-						</div>
-						<div
-							style="
-								display: flex;
-								justify-content: center;
-								align-items: center;
-								gap: 3px;
-							"
-						>
-							<label for="cr">cr</label>
-							<input type="radio" id="css" name="due" value="cr" />
-						</div>
-					</td>
-
-					<!-- amount -->
-					<td>
-						<input type="text" />
-					</td>
-				</tr>
-
-				<% } %>
-
-				<!-- button row -->
-				<tr>
-					<td>
-						<!-- button -->
-						<input type="hidden" name="questionId<%= questionId %>" />
-						<button class="answer-button" type="submit">Submit</button>
-					</td>
-				</tr>
-			</form>
-		</table>
-	</form>
-
-	<!-- accrual -->
-	<form action="/?question=<%=  questionId  %>&type=accrual" method="post">
-		<table id="accrual" style="margin-bottom: 20px; display: none">
-			<!-- entry heading  -->
-			<tr>
-				<th>when</th>
-				<th>entries type</th>
-				<th>due</th>
-				<th>due amount</th>
-			</tr>
-
-			<!-- accrual -->
-			<% for (const [index, entry] of accrual.entries()) { %>
+		<!-- cash -->
+		<form action="/?question=<%= page %>&type=cash" method="post">
+			<% for (const [index, entry] of cash.entries()) { %>
 			<tr>
 				<td><%= index %></td>
 			</tr>
+
 			<!-- entry input -->
 			<tr>
 				<!-- when -->
-				<td><input type="text" placeholder="mm/dd" /></td>
+				<td><input type="text" name="when" placeholder="mm/dd" required /></td>
 
 				<!-- entries -->
 				<td>
-					<select name="type">
+					<select name="entriesType" required>
 						<option value=""></option>
 						<option value="revenue">Revenue</option>
 						<option value="deferred">Deferred</option>
@@ -179,7 +98,7 @@
 						"
 					>
 						<label for="dr">dr</label>
-						<input type="radio" id="dr" name="due" value="dr" />
+						<input type="radio" id="dr" name="due" value="dr" required />
 					</div>
 					<div
 						style="
@@ -190,39 +109,112 @@
 						"
 					>
 						<label for="cr">cr</label>
-						<input type="radio" id="css" name="due" value="cr" />
+						<input type="radio" id="css" name="due" value="cr" required />
 					</div>
 				</td>
 
 				<!-- amount -->
 				<td>
-					<input type="text" />
+					<input type="text" name="dueAmount" required />
 				</td>
 			</tr>
 
 			<% } %>
 
+			<!-- button row -->
 			<tr>
 				<td>
-					<!-- button -->
-					<button class="answer-button">Submit</button>
+					<button class="answer-button" type="submit">Submit</button>
 				</td>
 			</tr>
-		</table>
-	</form>
+		</form>
+	</table>
+
+	<!-- accrual -->
+	<table id="accrual" style="margin-bottom: 20px; display: none">
+		<!-- entry heading  -->
+		<tr>
+			<th>when</th>
+			<th>entries type</th>
+			<th>due</th>
+			<th>due amount</th>
+		</tr>
+
+		<!-- cash -->
+		<form action="/?question=<%= page %>&type=accrual" method="post">
+			<% for (const [index, entry] of accrual.entries()) { %>
+			<tr>
+				<td><%= index %></td>
+			</tr>
+
+			<!-- entry input -->
+			<tr>
+				<!-- when -->
+				<td><input type="text" name="when" placeholder="mm/dd" required /></td>
+
+				<!-- entries -->
+				<td>
+					<select name="entriesType" required>
+						<option value=""></option>
+						<option value="revenue">Revenue</option>
+						<option value="deferred">Deferred</option>
+						<option value="cash">Cash</option>
+						<option value="receivable">Receivable</option>
+						<option value="contra">Contra</option>
+						<option value="system-credit">System Credit (Liability)</option>
+					</select>
+				</td>
+
+				<!-- due -->
+				<td style="display: flex; gap: 7px">
+					<div
+						style="
+							display: flex;
+							justify-content: center;
+							align-items: center;
+							gap: 3px;
+						"
+					>
+						<label for="dr">dr</label>
+						<input type="radio" id="dr" name="due" value="dr" required />
+					</div>
+					<div
+						style="
+							display: flex;
+							justify-content: center;
+							align-items: center;
+							gap: 3px;
+						"
+					>
+						<label for="cr">cr</label>
+						<input type="radio" id="css" name="due" value="cr" required />
+					</div>
+				</td>
+
+				<!-- amount -->
+				<td>
+					<input type="text" name="dueAmount" required />
+				</td>
+			</tr>
+
+			<% } %>
+
+			<!-- button row -->
+			<tr>
+				<td>
+					<button class="answer-button" type="submit">Submit</button>
+				</td>
+			</tr>
+		</form>
+	</table>
 </div>
 
 <!-- -------------------- script -------------------- -->
 <script>
-	document
-		.getElementById('type')
-		// Adding the event listener.
-		.addEventListener('change', (evt) => {
-			// Hiding every list.
-			document.querySelectorAll('table').forEach((table) => {
-				table.style.display = 'none';
-			});
-			// Showing the needed list.
-			document.getElementById(evt.target.value).style.display = 'block';
+	document.getElementById('type').addEventListener('change', (evt) => {
+		document.querySelectorAll('table').forEach((table) => {
+			table.style.display = 'none';
 		});
+		document.getElementById(evt.target.value).style.display = 'block';
+	});
 </script>
