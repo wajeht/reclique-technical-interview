@@ -17,7 +17,7 @@ const getIndex = async (req, res, next) => {
 };
 
 const postCheckAnswer = async (req, res, next) => {
-	const data = {...req.body};
+	const data = { ...req.body };
 
 	console.log(data);
 };
