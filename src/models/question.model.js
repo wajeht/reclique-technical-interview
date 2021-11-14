@@ -7,9 +7,7 @@ class Question {
 			const res = await fetch(API);
 
 			if (!res.ok) {
-				throw new Error(
-					'Some thing went wrong while pulling data from database',
-				);
+				throw new Error('Some thing went wrong while pulling data from database');
 			}
 
 			const data = await res.json();
@@ -18,7 +16,7 @@ class Question {
 		} catch (err) {
 			console.log(err);
 		}
-	}
+}
 
 	/**
 	 *
