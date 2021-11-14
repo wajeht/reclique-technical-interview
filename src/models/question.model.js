@@ -1,5 +1,7 @@
+
+require('dotenv').config();
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
-const API = 'https://reclique.github.io/web-dev-testing/1_accounting_game/questions.json';
+const API = process.env.API;
 
 class Question {
 	static async fetchAllQuestions() {
