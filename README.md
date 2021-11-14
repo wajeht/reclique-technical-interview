@@ -45,7 +45,7 @@ After you have install Nodejs, you can start working on the project using the fo
 5.  Go go the server folder and type in the run command.
 
     ```bash
-    npm run dev
+    $ npm run dev
     ```
 
 6.  Now you can visit the following url on your browser.
