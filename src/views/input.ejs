@@ -37,6 +37,10 @@
 
 <!-- -------------------- html -------------------- -->
 <div class="answer">
+
+  <!-- error message -->
+  <%- include('./error.ejs') %>
+
   <!-- answer type -->
   <div id="type" class="answer-type">
     <label for="type" style="font-weight: bold">Answer type: </label>
@@ -58,7 +62,7 @@
     </tr>
 
     <!-- cash -->
-    <form action="/?question=<%= page %>&type=cash" method="post">
+    <form action="/?question=<%= page %>&type=cash">
       <% for (const [index, entry] of cash.entries()) { %>
       <!-- entry input -->
       <tr>
@@ -135,7 +139,7 @@
       <tr>
         <td colspan="4">
           <center>
-            <button class="answer-button" type="submit">Submit</button>
+            <button class="answer-button" type="button" onclick="checkAnswer(this.closest('table'))">Submit</button>
           </center>
         </td>
       </tr>
@@ -153,7 +157,7 @@
     </tr>
 
     <!-- cash -->
-    <form action="/?question=<%= page %>&type=accrual" method="post">
+    <form action="/?question=<%= page %>&type=accrual">
       <% for (const [index, entry] of accrual.entries()) { %>
 
       <!-- entry input -->
@@ -231,7 +235,7 @@
       <tr>
         <td colspan="4">
           <center>
-            <button class="answer-button" type="submit">Submit</button>
+            <button class="answer-button" type="button" onclick="checkAnswer(this.closest('table'))">Submit</button>
           </center>
         </td>
       </tr>

@@ -3,12 +3,12 @@
  * @param {Object} req.body
  * @returns An array of objects in readable form
  */
-const convertPostRequestToReadableData = ({body}) => {
+const convertPostRequestToReadableData = (body) => {
   let data = Object.entries(body);
 
   const arr = [];
 
-  // iterate and cute every four consecutive elements
+  // iterate and cut every four consecutive elements
   for (let i = 0; i < data.length; i++) {
     const entry = data.splice(0, 4);
 

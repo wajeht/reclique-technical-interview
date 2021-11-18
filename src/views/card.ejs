@@ -39,6 +39,7 @@
 		<h2 class="card-title"><%= question.title %></h2>
 		<p class="card-description"><%= question.description %></p>
 		<div class="card-body">
+
 			<!-- input -->
 			<%- include("./input.ejs", {
 				cash: question.correct_answers[0].entries,
