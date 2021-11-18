@@ -1,71 +1,67 @@
 <!-- -------------------- css -------------------- -->
 <style>
-	.card {
-		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-		border-radius: 5px;
-		background: #ffffff;
-		margin: 10px 0;
-		padding: 20px;
+  .card {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    border-radius: 5px;
+    background: #ffffff;
+    margin: 10px 0;
+    padding: 20px;
 
-		display: flex;
-		justify-content: center;
-		flex-direction: column;
-		align-items: center;
-	}
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
 
-	.card-title {
-		margin-bottom: 20px;
-	}
+  .card-title {
+    margin-bottom: 20px;
+  }
 
-	.card-title h2 {
-		margin-bottom: 10px;
-	}
+  .card-title h2 {
+    margin-bottom: 10px;
+  }
 
-	.card-description {
-		text-align: center;
-	}
+  .card-description {
+    text-align: center;
+  }
 
-	.card-footer {
-		display: flex;
-		justify-content: space-between;
-	}
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+  }
 </style>
 
 <!-- -------------------- html -------------------- -->
 <% for (const [questionId, question] of questions.entries()) { %>
 
-	<!-- card -->
-	<div class="card">
-		<h2 class="card-title"><%= question.title %></h2>
-		<p class="card-description"><%= question.description %></p>
-		<div class="card-body">
+<!-- card -->
+<div class="card">
+  <h2 class="card-title"><%= question.title %></h2>
+  <p class="card-description"><%= question.description %></p>
+  <div class="card-body">
+    <!-- input -->
+    <%- include("./input.ejs", { cash: question.correct_answers[0].entries,
+    accrual: question.correct_answers[1].entries, questionId }) %>
+  </div>
+</div>
 
-			<!-- input -->
-			<%- include("./input.ejs", {
-				cash: question.correct_answers[0].entries,
-				accrual: question.correct_answers[1].entries,
-				questionId
-			}) %>
-		</div>
-	</div>
+<!-- footer -->
+<div class="card-footer">
+  <!-- previous -->
+  <% if (1 !== page) { %>
+  <a id="previous" href="?page=<%= page - 1 %> ">Previous</a>
+  <% } else { %>
+  <div></div>
+  <% } %>
 
-	<!-- footer -->
-	<div class="card-footer">
-		<!-- previous -->
-		<% if (1 !== page) { %>
-			<a id="previous" href="?page=<%= page - 1 %> ">Previous</a>
-		<% } else { %>
-			<div></div>
-		<% } %>
+  <!-- count -->
+  <p>Question <%= page %> of <%= pageCount %></p>
 
-		<!-- count -->
-		<p>Question <%= page %> of <%= pageCount %></p>
-
-		<!-- next -->
-		<% if (pageCount !== page) { %>
-			<a id="next" href="?page=<%= page + 1 %> ">Next</a>
-		<% } else { %>
-			<div></div>
-		<% } %>
-	</div>
+  <!-- next -->
+  <% if (pageCount !== page) { %>
+  <a id="next" href="?page=<%= page + 1 %> ">Next</a>
+  <% } else { %>
+  <div></div>
+  <% } %>
+</div>
 <% } %>

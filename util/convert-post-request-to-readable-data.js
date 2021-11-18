@@ -1,7 +1,7 @@
 /**
  * The function will convert post request into readable form
  * @param {Object} req.body
- * @returns An array of objects in readable form
+ * @returns {Array} arr - An array of objects in readable form
  */
 const convertPostRequestToReadableData = (body) => {
   let data = Object.entries(body);
