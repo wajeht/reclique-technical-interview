@@ -20,9 +20,19 @@ const checkAnswer = (btn) => {
         };
       }
 
-      document.querySelector(".card-body").before(Toast("ok", data.message));
-      document.querySelector(".answer").remove(0);
+      btn.querySelector("button").disabled = true;
+      btn.querySelector("button").innerHTML = `<span>Checking...</span>`;
+
+      setTimeout(() => {
+        document.querySelector(".card-body").before(Toast("ok", data.message));
+        document.querySelector(".answer").remove(0);
+      }, 5000);
+      
     } catch (err) {
+      // btn.querySelector("button").disabled = true;
+      // btn.querySelector(
+      //   "button"
+      // ).innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">Loading...</span> `;
       document.querySelector(".card-body").before(Toast("err", err.message));
     }
   })();
