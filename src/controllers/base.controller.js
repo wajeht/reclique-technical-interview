@@ -10,7 +10,6 @@ const getIndex = async (req, res) => {
     const pageCount = questions.length;
 
     res.render("card.ejs", {
-      error: "",
       page: page,
       pageCount: pageCount,
       questions: questions.slice(page * 1 - 1, page * 1),
@@ -23,30 +22,46 @@ const getIndex = async (req, res) => {
 const postCheckAnswer = async (req, res) => {
   try {
     let { question, type } = req.query;
-    const data = convertPostRequestToReadableData(req.body);
 
-    console.log({ question, type });
+    // check to see if user input is empty or not
+    Object.entries(req.body).forEach((input) => {
+      const value = input[1];
+      if (value == "") {
+        throw new Error("must not be empty!");
+      }
+    });
 
-    const getType = type;
+    console.log(req.body);
 
+    // convert user submitted data into our structured question json object
+    const submittedAnswers = convertPostRequestToReadableData(req.body);
+
+    console.log("submittedAnswers", submittedAnswers);
+
+    // this code is to deal with specific key
     if (type == "cash") {
       type = 0;
     } else {
       type = 1;
     }
-
     question = Number.parseInt(question);
 
-    const sameAnswer = await Question.checkAnswer(question, type, data);
+    // check answer from database
+    const sameAnswer = await Question.checkAnswer(
+      question,
+      type,
+      submittedAnswers
+    );
+
 
     if (!sameAnswer) {
-      res.status(204).json({ message: "not found!" });
-      return;
+      throw new Error("wrong!");
     }
 
-    res.status(200).json({ message: "ok" });
+    // if everything worked out well, we return an ok
+    res.status(200).json({ message: "ok!" });
   } catch (err) {
-    console.table(err);
+    res.status(500).json({ message: err.message });
   }
 };
 

@@ -37,14 +37,10 @@
 
 <!-- -------------------- html -------------------- -->
 <div class="answer">
-
-  <!-- error message -->
-  <%- include('./error.ejs') %>
-
   <!-- answer type -->
-  <div id="type" class="answer-type">
+  <div class="answer-type">
     <label for="type" style="font-weight: bold">Answer type: </label>
-    <select name="type">
+    <select id="type" name="type">
       <option value=""></option>
       <option value="cash">cash</option>
       <option value="accrual">accrual</option>
@@ -52,7 +48,12 @@
   </div>
 
   <!-- cash -->
-  <table id="cash" class="answer-table">
+  <table
+    id="cash"
+    post-url="/?question=<%= page %>&type=cash"
+    id="cashForm"
+    class="answer-table"
+  >
     <!-- entry heading  -->
     <tr>
       <th>When</th>
@@ -62,88 +63,74 @@
     </tr>
 
     <!-- cash -->
-    <form action="/?question=<%= page %>&type=cash">
-      <% for (const [index, entry] of cash.entries()) { %>
-      <!-- entry input -->
-      <tr>
-        <!-- when -->
-        <td>
-          <input
-            type="text"
-            name="when<%= index %>"
-            placeholder="mm/dd"
-            required
-          />
-        </td>
+    <% for (const [index, entry] of cash.entries()) { %>
+    <!-- entry input -->
+    <tr>
+      <!-- when -->
+      <td>
+        <input
+          type="text"
+          name="when<%= index %>"
+          placeholder="mm/dd"
+          required
+        />
+      </td>
 
-        <!-- entries -->
-        <td>
-          <select name="type<%= index %>" required>
-            <option value=""></option>
-            <option value="revenue">Revenue</option>
-            <option value="deferred">Deferred</option>
-            <option value="cash">Cash</option>
-            <option value="receivable">Receivable</option>
-            <option value="contra">Contra</option>
-            <option value="system-credit">System Credit (Liability)</option>
-          </select>
-        </td>
+      <!-- entries -->
+      <td>
+        <select onchange="setEntryType(this)" name="type<%= index %>" required>
+          <option value=""></option>
+          <option value="revenue">Revenue</option>
+          <option value="deferred">Deferred</option>
+          <option value="cash">Cash</option>
+          <option value="receivable">Receivable</option>
+          <option value="contra">Contra</option>
+          <option value="system-credit">System Credit (Liability)</option>
+        </select>
+        <input
+          type="hidden"
+          name="type<%= index %>"
+          value=""
+          id="entry-type-input<%= index %> "
+        />
+      </td>
 
-        <!-- due -->
-        <td style="display: flex; gap: 7px">
-          <div
-            style="
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              gap: 3px;
-            "
+      <!-- due -->
+      <td style="display: flex; gap: 7px">
+        <select onchange="setDue(this)" name="due<%= index %>" required>
+          <option value=""></option>
+          <option value="Dr">Dr</option>
+          <option value="Cr">Cr</option>
+        </select>
+        <input
+          type="hidden"
+          name="due<%= index %>"
+          id="due-type-input<%= index %>"
+        />
+      </td>
+
+      <!-- amount -->
+      <td>
+        <input type="number" name="dueAmount<%= index %>" required />
+      </td>
+    </tr>
+
+    <% } %>
+
+    <!-- button row -->
+    <tr>
+      <td colspan="4">
+        <center>
+          <button
+            class="answer-button"
+            type="button"
+            onclick="checkAnswer(this.closest('table'))"
           >
-            <label for="dr">dr</label>
-            <input
-              type="radio"
-              id="dr"
-              name="due<%= index %>"
-              value="Dr"
-              required
-            />
-          </div>
-          <div
-            style="
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              gap: 3px;
-            "
-          >
-            <label for="cr">cr</label>
-            <input
-              type="radio"
-              id="cr"
-              name="due<%= index %>"
-              value="Cr"
-              required
-            />
-          </div>
-        </td>
-
-        <!-- amount -->
-        <td>
-          <input type="number" name="dueAmount<%= index %>" required />
-        </td>
-      </tr>
-
-      <% } %>
-
-      <!-- button row -->
-      <tr>
-        <td colspan="4">
-          <center>
-            <button class="answer-button" type="button" onclick="checkAnswer(this.closest('table'))">Submit</button>
-          </center>
-        </td>
-      </tr>
-    </form>
+            Submit
+          </button>
+        </center>
+      </td>
+    </tr>
   </table>
 
   <!-- accrual -->
@@ -235,7 +222,13 @@
       <tr>
         <td colspan="4">
           <center>
-            <button class="answer-button" type="button" onclick="checkAnswer(this.closest('table'))">Submit</button>
+            <button
+              class="answer-button"
+              type="button"
+              onclick="checkAnswer(this.closest('table'))"
+            >
+              Submit
+            </button>
           </center>
         </td>
       </tr>
@@ -245,6 +238,21 @@
 
 <!-- -------------------- script -------------------- -->
 <script>
+  // set which entries type to input on drop down entries type
+  // it is easier to send 'input' to the server instead of 'select'
+  // because the way i form 'form data' needs to be in specific order
+  setEntryType = (btn) => {
+    btn.parentNode.children[1].value = btn.value;
+  };
+
+  // same thing goes for this one below, i was using radio button
+  // but some how it did not pick up when btn click submit so this
+  // one below work perfect
+  setDue = (btn) => {
+    btn.parentNode.children[1].value = btn.value;
+  };
+
+  // hide and display either cash or accrual table based on what user select
   document.getElementById("type").addEventListener("change", (evt) => {
     document.querySelectorAll("table").forEach((table) => {
       table.style.display = "none";
