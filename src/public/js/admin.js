@@ -1,3 +1,8 @@
+/**
+ * check form submitted answer with the backend
+ * @param {Object} btn
+ * @returns {Void}
+ */
 const checkAnswer = (btn) => {
   const URL = btn.getAttribute("post-url");
   const formData = parseFormInputsIntoObject(btn);
@@ -27,7 +32,7 @@ const checkAnswer = (btn) => {
         document.querySelector(".card-body").before(Toast("ok", data.message));
         document.querySelector(".answer").remove(0);
       }, 5000);
-      
+
     } catch (err) {
       // btn.querySelector("button").disabled = true;
       // btn.querySelector(

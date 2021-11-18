@@ -1,7 +1,5 @@
 const Question = require("../models/question.model.js");
-const {
-  convertPostRequestToReadableData,
-} = require("../../util/convert-post-request-to-readable-data.js");
+const { convertPostRequestToReadableData } = require("../../util/convert-post-request-to-readable-data.js");
 
 const getIndex = async (req, res) => {
   try {
@@ -47,11 +45,7 @@ const postCheckAnswer = async (req, res) => {
     question = Number.parseInt(question);
 
     // check answer from database
-    const sameAnswer = await Question.checkAnswer(
-      question,
-      type,
-      submittedAnswers
-    );
+    const sameAnswer = await Question.checkAnswer(question, type, submittedAnswers);
 
     if (!sameAnswer) {
       throw new Error("wrong!");
@@ -63,9 +57,6 @@ const postCheckAnswer = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-
-// test
-const something = '';
 
 module.exports = {
   getIndex,

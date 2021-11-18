@@ -33,35 +33,38 @@
 
 <!-- -------------------- html -------------------- -->
 <% for (const [questionId, question] of questions.entries()) { %>
+  <!-- card -->
+  <div class="card">
+    <h2 class="card-title"><%= question.title %></h2>
+    <p class="card-description"><%= question.description %></p>
+    <div class="card-body">
 
-<!-- card -->
-<div class="card">
-  <h2 class="card-title"><%= question.title %></h2>
-  <p class="card-description"><%= question.description %></p>
-  <div class="card-body">
-    <!-- input -->
-    <%- include("./input.ejs", { cash: question.correct_answers[0].entries,
-    accrual: question.correct_answers[1].entries, questionId }) %>
+      <!-- input -->
+      <%- include("./input.ejs", {
+        cash: question.correct_answers[0].entries,
+        accrual: question.correct_answers[1].entries, questionId
+      }) %>
+
+    </div>
   </div>
-</div>
 
-<!-- footer -->
-<div class="card-footer">
-  <!-- previous -->
-  <% if (1 !== page) { %>
-  <a id="previous" href="?page=<%= page - 1 %> ">Previous</a>
-  <% } else { %>
-  <div></div>
-  <% } %>
+  <!-- footer -->
+  <div class="card-footer">
+    <!-- previous -->
+    <% if (1 !== page) { %>
+      <a id="previous" href="?page=<%= page - 1 %> ">Previous</a>
+    <% } else { %>
+      <div></div>
+    <% } %>
 
-  <!-- count -->
-  <p>Question <%= page %> of <%= pageCount %></p>
+    <!-- count -->
+    <p>Question <%= page %> of <%= pageCount %></p>
 
-  <!-- next -->
-  <% if (pageCount !== page) { %>
-  <a id="next" href="?page=<%= page + 1 %> ">Next</a>
-  <% } else { %>
-  <div></div>
-  <% } %>
-</div>
+    <!-- next -->
+    <% if (pageCount !== page) { %>
+      <a id="next" href="?page=<%= page + 1 %> ">Next</a>
+    <% } else { %>
+      <div></div>
+    <% } %>
+  </div>
 <% } %>
