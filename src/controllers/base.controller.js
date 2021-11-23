@@ -1,5 +1,7 @@
 const Question = require("../models/question.model.js");
-const { convertPostRequestToReadableData } = require("../../util/convert-post-request-to-readable-data.js");
+const {
+  convertPostRequestToReadableData,
+} = require("../../util/convert-post-request-to-readable-data.js");
 
 const getIndex = async (req, res) => {
   try {
@@ -20,6 +22,8 @@ const getIndex = async (req, res) => {
 const postCheckAnswer = async (req, res) => {
   try {
     let { question, type } = req.query;
+    const page = +req.query.page || 1;
+    const questions = await Question.fetchAllQuestions();
 
     // check to see if user input is empty or not
     Object.entries(req.body).forEach((input) => {
@@ -43,14 +47,20 @@ const postCheckAnswer = async (req, res) => {
     question = Number.parseInt(question);
 
     // check answer from database
-    const sameAnswer = await Question.checkAnswer(question, type, submittedAnswers);
+    const sameAnswer = await Question.checkAnswer(
+      question,
+      type,
+      submittedAnswers
+    );
 
     if (!sameAnswer) {
       throw new Error("wrong!");
     }
 
     // if everything worked out well, we return an ok
-    res.status(200).json({ message: "ok!" });
+    res.status(200).json({
+      message: "ok",
+    });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
