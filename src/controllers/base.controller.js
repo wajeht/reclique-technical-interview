@@ -29,8 +29,6 @@ const postCheckAnswer = async (req, res) => {
       }
     });
 
-    console.log(req.body);
-
     // convert user submitted data into our structured question json object
     const submittedAnswers = convertPostRequestToReadableData(req.body);
 
