@@ -22,14 +22,15 @@ const getIndex = async (req, res) => {
 const postCheckAnswer = async (req, res) => {
   try {
     let { question, type } = req.query;
-    const page = +req.query.page || 1;
     const questions = await Question.fetchAllQuestions();
+
+    console.log({ question, length: questions.length });
 
     // check to see if user input is empty or not
     Object.entries(req.body).forEach((input) => {
       const value = input[1];
       if (value == "") {
-        throw new Error("must not be empty!");
+        throw new Error("All input fields must not be empty!");
       }
     });
 
@@ -54,12 +55,15 @@ const postCheckAnswer = async (req, res) => {
     );
 
     if (!sameAnswer) {
-      throw new Error("wrong!");
+      throw new Error("Wrong answer, please try again!");
     }
 
     // if everything worked out well, we return an ok
     res.status(200).json({
-      message: "ok",
+      message:
+        question === questions.length
+          ? "Answer correct, you're done!"
+          : "Answer correct, click next!",
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
