@@ -24,7 +24,11 @@
   }
 
   .answer-table input[type="text"],
-  .answer-table input[type="date"] {
+  .answer-table input[type="number"] {
+    width: 100%;
+  }
+
+  .answer-table select {
     width: 100%;
   }
 
@@ -37,7 +41,6 @@
 
 <!-- -------------------- html -------------------- -->
 <div class="answer">
-
   <!-- answer type -->
   <div class="answer-type">
     <label for="type" style="font-weight: bold">Answer type: </label>
@@ -65,56 +68,56 @@
 
     <!-- cash -->
     <% for (const [index, entry] of cash.entries()) { %>
-      <!-- entry input -->
-      <tr>
-        <!-- when -->
-        <td>
-          <input
-            type="text"
-            name="when<%= index %>"
-            placeholder="mm/dd"
-            required
-          />
-        </td>
+    <!-- entry input -->
+    <tr>
+      <!-- when -->
+      <td>
+        <input
+          type="text"
+          name="when<%= index %>"
+          placeholder="mm/dd"
+          required
+        />
+      </td>
 
-        <!-- entries -->
-        <td>
-          <select onchange="setEntryType(this)" name="type<%= index %>" required>
-            <option value=""></option>
-            <option value="revenue">Revenue</option>
-            <option value="deferred">Deferred</option>
-            <option value="cash">Cash</option>
-            <option value="receivable">Receivable</option>
-            <option value="contra">Contra</option>
-            <option value="system-credit">System Credit (Liability)</option>
-          </select>
-          <input
-            type="hidden"
-            name="type<%= index %>"
-            value=""
-            id="entry-type-input<%= index %> "
-          />
-        </td>
+      <!-- entries -->
+      <td>
+        <select onchange="setEntryType(this)" name="type<%= index %>" required>
+          <option value=""></option>
+          <option value="revenue">Revenue</option>
+          <option value="deferred">Deferred</option>
+          <option value="cash">Cash</option>
+          <option value="receivable">Receivable</option>
+          <option value="contra">Contra</option>
+          <option value="system-credit">System Credit (Liability)</option>
+        </select>
+        <input
+          type="hidden"
+          name="type<%= index %>"
+          value=""
+          id="entry-type-input<%= index %> "
+        />
+      </td>
 
-        <!-- due -->
-        <td style="display: flex; gap: 7px">
-          <select onchange="setDue(this)" name="due<%= index %>" required>
-            <option value=""></option>
-            <option value="Dr">Dr</option>
-            <option value="Cr">Cr</option>
-          </select>
-          <input
-            type="hidden"
-            name="due<%= index %>"
-            id="due-type-input<%= index %>"
-          />
-        </td>
+      <!-- due -->
+      <td style="display: flex; gap: 7px">
+        <select onchange="setDue(this)" name="due<%= index %>" required>
+          <option value=""></option>
+          <option value="Dr">Dr</option>
+          <option value="Cr">Cr</option>
+        </select>
+        <input
+          type="hidden"
+          name="due<%= index %>"
+          id="due-type-input<%= index %>"
+        />
+      </td>
 
-        <!-- amount -->
-        <td>
-          <input type="number" name="dueAmount<%= index %>" required />
-        </td>
-      </tr>
+      <!-- amount -->
+      <td>
+        <input type="number" name="dueAmount<%= index %>" required />
+      </td>
+    </tr>
     <% } %>
 
     <!-- button row -->
@@ -133,7 +136,7 @@
     </tr>
   </table>
 
-  <!-- cash -->
+  <!-- accrual -->
   <table
     id="accrual"
     post-url="/?question=<%= page %>&type=accrual"
@@ -150,56 +153,56 @@
 
     <!-- accrual -->
     <% for (const [index, entry] of accrual.entries()) { %>
-      <!-- entry input -->
-      <tr>
-        <!-- when -->
-        <td>
-          <input
-            type="text"
-            name="when<%= index %>"
-            placeholder="mm/dd"
-            required
-          />
-        </td>
+    <!-- entry input -->
+    <tr>
+      <!-- when -->
+      <td>
+        <input
+          type="text"
+          name="when<%= index %>"
+          placeholder="mm/dd"
+          required
+        />
+      </td>
 
-        <!-- entries -->
-        <td>
-          <select onchange="setEntryType(this)" name="type<%= index %>" required>
-            <option value=""></option>
-            <option value="revenue">Revenue</option>
-            <option value="deferred">Deferred</option>
-            <option value="cash">Cash</option>
-            <option value="receivable">Receivable</option>
-            <option value="contra">Contra</option>
-            <option value="system-credit">System Credit (Liability)</option>
-          </select>
-          <input
-            type="hidden"
-            name="type<%= index %>"
-            value=""
-            id="entry-type-input<%= index %> "
-          />
-        </td>
+      <!-- entries -->
+      <td>
+        <select onchange="setEntryType(this)" name="type<%= index %>" required>
+          <option value=""></option>
+          <option value="revenue">Revenue</option>
+          <option value="deferred">Deferred</option>
+          <option value="cash">Cash</option>
+          <option value="receivable">Receivable</option>
+          <option value="contra">Contra</option>
+          <option value="system-credit">System Credit (Liability)</option>
+        </select>
+        <input
+          type="hidden"
+          name="type<%= index %>"
+          value=""
+          id="entry-type-input<%= index %> "
+        />
+      </td>
 
-        <!-- due -->
-        <td style="display: flex; gap: 7px">
-          <select onchange="setDue(this)" name="due<%= index %>" required>
-            <option value=""></option>
-            <option value="Dr">Dr</option>
-            <option value="Cr">Cr</option>
-          </select>
-          <input
-            type="hidden"
-            name="due<%= index %>"
-            id="due-type-input<%= index %>"
-          />
-        </td>
+      <!-- due -->
+      <td style="display: flex; gap: 7px">
+        <select onchange="setDue(this)" name="due<%= index %>" required>
+          <option value=""></option>
+          <option value="Dr">Dr</option>
+          <option value="Cr">Cr</option>
+        </select>
+        <input
+          type="hidden"
+          name="due<%= index %>"
+          id="due-type-input<%= index %>"
+        />
+      </td>
 
-        <!-- amount -->
-        <td>
-          <input type="number" name="dueAmount<%= index %>" required />
-        </td>
-      </tr>
+      <!-- amount -->
+      <td>
+        <input type="number" name="dueAmount<%= index %>" required />
+      </td>
+    </tr>
     <% } %>
 
     <!-- button row -->
