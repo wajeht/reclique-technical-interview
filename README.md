@@ -12,7 +12,9 @@ This codebase is no longer actively maintained. The package will continue workin
 
 Visit the following url for demo.
 
+```
 https://reclique.jaw.dev/
+```
 
 # 👨‍💻 Development
 
