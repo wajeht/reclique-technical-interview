@@ -5,8 +5,8 @@
   "type": "module",
   "main": "src/app.js",
   "scripts": {
-    "dev": "nodemon bin/server.js",
-    "start": "node bin/server.js"
+    "dev": "nodemon ./src/app.js",
+    "start": "node ./src/app.js"
   },
   "author": "wajeht",
   "license": "MIT",
