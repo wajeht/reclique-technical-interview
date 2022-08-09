@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import compression from 'compression';
 import ApiRoutes from './api/api.routes.js';
 import { PORT } from './config/constants.js';
+import rateLimiter from './config/rateLimiter.js';
 import QuestionsModel from './api/questions/questions.model.js';
 import expressLayouts from 'express-ejs-layouts';
 import express from 'express';
@@ -19,6 +20,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.resolve(path.join(process.cwd(), 'src', 'public', 'views')));
 app.use(express.static(path.resolve(path.join(process.cwd(), 'src', 'public', 'assets'))));
 app.use(expressLayouts);
+app.use(rateLimiter);
 
 app.use('/api', ApiRoutes);
 
