@@ -1,4 +1,7 @@
 import path from 'path';
+import cors from 'cors';
+import helmet from 'helmet';
+import compression from 'compression';
 import ApiRoutes from './api/api.routes.js';
 import { PORT } from './config/constants.js';
 import QuestionsModel from './api/questions/questions.model.js';
@@ -7,6 +10,9 @@ import express from 'express';
 
 const app = express();
 
+app.use(cors());
+app.use(compression());
+app.use(helmet({ contentSecurityPolicy: false })); // prettier-ignore
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
