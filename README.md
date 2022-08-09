@@ -8,6 +8,12 @@ Given a JSON api, build an app or CLI to check users' submission!
 
 This codebase is no longer actively maintained. The package will continue working, but support and changes are no longer provided.
 
+# 📺 Demo
+
+Visit the following url for demo.
+
+https://reclique.jaw.dev/
+
 # 👨‍💻 Development
 
 Follow the instructions below for your local development!
