@@ -124,3 +124,8 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+doc/questions_long.json
+.reclique/questions_long.json
+.reclique/questions.json
+.reclique/accounting-game.md
+.reclique/sample.html

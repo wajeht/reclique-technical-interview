@@ -1,8 +1,14 @@
+<p align="center"><img style="width: 100%;" src="https://raw.githubusercontent.com/wajeht/check-in-systems/main/.github/github_readme_screenshot.jpg"></p>
+
 # About
 
 Given a JSON api, build an app or CLI to check users' submission!
 
-# Development
+# ⚠️ Depreciated
+
+This codebase is no longer actively maintained. The package will continue working, but support and changes are no longer provided.
+
+# 👨‍💻 Development
 
 Follow the instructions below for your local development!
 
@@ -53,6 +59,6 @@ After you have install Nodejs, you can start working on the project using the fo
     http://localhost:<PORT>/
     ```
 
-# License
+# ©️ License
 
 Distributed under the MIT License © [wajeht](https://www.github.com/wajeht/). See LICENSE for more information
