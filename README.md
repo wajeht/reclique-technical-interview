@@ -1,4 +1,4 @@
-<p align="center"><img style="width: 100%;" src="https://raw.githubusercontent.com/wajeht/check-in-systems/main/.github/github_readme_screenshot.jpg"></p>
+<p align="center"><img style="width: 100%;" src="https://raw.githubusercontent.com/wajeht/reclique-technical-interview/main/.reclique/screenshot.png"></p>
 
 # About
 
