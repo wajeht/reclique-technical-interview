@@ -11,7 +11,8 @@ body {
 
 #app {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   min-height: 100vh;
 }
@@ -19,6 +20,11 @@ body {
 .container {
   width: 90%;
   max-width: 600px;
+}
+
+.copyright {
+  margin-bottom: 10px;
+  flex-grow: 0;
 }
 
 /* -------------------- toast -------------------- */
