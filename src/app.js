@@ -24,6 +24,10 @@ app.use(rateLimiter);
 
 app.use('/api', ApiRoutes);
 
+app.get('/health-check', async (req, res) => {
+  return res.status(200).json({ message: 'OK' });
+});
+
 app.get('/', async (req, res, next) => {
   try {
     const questions = await QuestionsModel.fetchAllQuestions();
