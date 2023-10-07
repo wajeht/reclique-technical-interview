@@ -1,18 +1,22 @@
+const year = document.getElementById('year');
+const currentYear = new Date().getFullYear();
+year.innerText = currentYear;
+
 /**
  * check form submitted answer with the backend
  * @param {Object} btn
  * @returns {Void}
  */
 const checkAnswer = (btn) => {
-  const URL = btn.getAttribute("post-url");
+  const URL = btn.getAttribute('post-url');
   const formData = parseFormInputsIntoObject(btn);
 
   (async () => {
     try {
       const res = await fetch(URL, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       });
@@ -25,21 +29,21 @@ const checkAnswer = (btn) => {
         };
       }
 
-      btn.querySelector("button").disabled = true;
-      btn.querySelector("button").innerHTML = `<span>Checking...</span>`;
+      btn.querySelector('button').disabled = true;
+      btn.querySelector('button').innerHTML = `<span>Checking...</span>`;
 
       setTimeout(() => {
-        document.querySelector(".card-body").before(Toast("ok", data.message));
-        document.querySelector(".answer").remove(0);
+        document.querySelector('.card-body').before(Toast('ok', data.message));
+        document.querySelector('.answer').remove(0);
       }, 1000);
     } catch (err) {
-      btn.querySelector("button").disabled = true;
-      btn.querySelector("button").innerHTML = `<span>Checking...</span>`;
+      btn.querySelector('button').disabled = true;
+      btn.querySelector('button').innerHTML = `<span>Checking...</span>`;
 
       setTimeout(() => {
-        document.querySelector(".card-body").before(Toast("err", err.message));
-        btn.querySelector("button").disabled = false;
-        btn.querySelector("button").innerHTML = `<span>Submit</span>`;
+        document.querySelector('.card-body').before(Toast('err', err.message));
+        btn.querySelector('button').disabled = false;
+        btn.querySelector('button').innerHTML = `<span>Submit</span>`;
       }, 1000);
 
       // setTimeout(() => {
@@ -54,7 +58,7 @@ const checkAnswer = (btn) => {
  * @returns {Object} formData - list of form data
  */
 const parseFormInputsIntoObject = (btn) => {
-  const inputs = btn.querySelectorAll("input");
+  const inputs = btn.querySelectorAll('input');
   const formData = {};
 
   for (var i = 0; i < inputs.length; i++) {
@@ -72,13 +76,13 @@ const parseFormInputsIntoObject = (btn) => {
  */
 const Toast = (type, message) => {
   // if there is error already remove
-  if (document.querySelectorAll(".toast")) {
-    document.querySelectorAll(".toast").forEach((el) => {
+  if (document.querySelectorAll('.toast')) {
+    document.querySelectorAll('.toast').forEach((el) => {
       el.remove();
     });
   }
 
-  const html = document.createElement("div");
+  const html = document.createElement('div');
   html.innerHTML = `
   <div class="toast toast-${type}">
     <p class="toast-body">${message}</p>
